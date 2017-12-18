@@ -1,0 +1,85 @@
+<!doctype html>
+
+<title> Admin </title>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css.css') }}">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+</head>
+
+<body>
+		<div id="navbar">
+			<a href="/"> Home </a>
+			<a href="/patients/"> Patients </a>
+			<a href="/research"> Research </a>
+			<a href="/admin/"> Admin </a>
+			<p style="float:right; padding-right: 10px"> Lachlan Ashcroft </p>
+		</div>
+	
+		<h1 align="center"> Admin </h1>
+
+		<div id="admin-stats">
+			Patients: {{ num_patients }} &nbsp &nbsp &nbsp
+			Average age: {{ avg_age }} &nbsp &nbsp &nbsp
+			Sensors: {{ n_sensors }} &nbsp &nbsp &nbsp
+			Records: {{ n_records }} &nbsp &nbsp &nbsp
+            Server: {{ server_name }}
+		</div>
+
+		<embed type="image/svg+xml" src={{gender_chart|safe}} width="50%" height="600px" align="left"/>
+		<embed type="image/svg+xml" src={{sensors_chart|safe}} width="50%" height="600px" align="right"/>
+
+
+		<br>
+		<div id="INPUT-SECTION">
+			<div id="create-patients">
+				<form action="/patients/add-bulk/" method="Post">
+					<input type="text" name="Amount" value="10" 		placeholder="amount">
+					<input type="text" name="Male Ratio" value="0.5" 	placeholder="male ratio (0-1)">
+					<input type="text" name="Female Ratio" value="0.5" 	placeholder="female ratio (0-1)">
+					<br>
+					<br>
+					<input style="width:200px;" type="submit" value="Generate">
+				</form>
+			</div>
+
+			<br>
+
+			<div id="generate-sensor-data">
+				<form action="/sensors/add" method="Post">
+					<input type="text" name="Days" value="1" placeholder="days">
+					<br>
+					<input type="text" name="BP RATE" value="0.125" 	placeholder="BP samples / hr">
+					<input type="text" name="HR RATE" value="60" 	placeholder="HR samples / hr">
+					<input type="text" name="GL RATE" value="0.25" 	placeholder="GL samples / hr">
+					<input type="text" name="BO RATE" value="1" 	placeholder="BO samples / hr">
+					<br>
+					<input type="text" name="BP MIN" value="40"		placeholder="BP min">
+					<input type="text" name="HR MIN" value="40" 	placeholder="HR min">
+					<input type="text" name="GL MIN" value="0" 		placeholder="GL min">
+					<input type="text" name="BO MIN" value="75" 	placeholder="BO min">
+					<br>
+					<input type="text" name="BP MAX" value="210" 	placeholder="BP max">
+					<input type="text" name="HR MAX" value="200" 	placeholder="HR max">
+					<input type="text" name="GL MAX" value="10" 	placeholder="GL max">
+					<input type="text" name="BO MAX" value="100" 	placeholder="BO max">
+					<br><br>
+					<input style="width:200px;" type="submit" value="Generate">
+				</form>
+			</div>
+
+			<br>
+			<div id="remove-alls">
+				<form action="/patients/remove-all" method="Post">
+					<button style="width:200px;"> Remove all patients </button>
+				</form>
+
+				<form action="/sensors/remove-all" method="Post">
+					<button style="width:200px;"> Delete all sensor data </button>
+				</form>
+			</div>
+		</div>
+
+</body>

@@ -1,0 +1,4 @@
+__pycache__
+.dockerignore
+web-app_env
+db
